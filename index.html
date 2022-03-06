@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <script src="js/main.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="weather">
+            <div class="header">
+                <form class="form">
+                    <input class="header__search" type="text" placeholder="Enter the city">
+                    <button class="header__search-btn"></button>
+                </form>
+            </div>
+            <div class="info">
+                <div class="info__tabs tabs">
+                    <div class="tabs__content-box">
+                        <div class="tabs__content">
+                            <div class="info__now">
+                                <p class="info__now-tepmerature">14</p>
+                                <img class="info__now-img" src="/img/cloud.png" alt="cloud">
+                                <div class="info__now-bottom">
+                                    <h4 class="info__now-city">Aktobe</h4>
+                                    <button class="info__now-favorite"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tabs__content">
+                            <div class="info__details">
+                                <h4 class="info__details-city">Aktobe</h4>
+                                <ul class="info__details-list">
+                                    <li class="info__details-item">Temperature: 14°</li>
+                                    <li class="info__details-item">Feels like: 10°</li>
+                                    <li class="info__details-item">Weather: Clouds</li>
+                                    <li class="info__details-item">Sunrise: 03:21</li>
+                                    <li class="info__details-item">Sunset: 18:54</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tabs__content">
+                            <div class="info__forecast">
+                                <h4 class="info__forecast-city">Aktobe</h4>
+                                <div class="info__forecast-box forecast-box">
+                                    <div class="forecast-box__date">
+                                        <p class="forecast-box__day">17 May</p>
+                                        <p class="forecast-box__time">12:00</p>
+                                    </div>
+                                    <div class="forecast-box__bottom">
+                                        <ul class="forecast-box__list">
+                                            <li class="forecast-box__item">Temperature: 13°</li>
+                                            <li class="forecast-box__item">Feels like: 10°</li>
+                                        </ul>
+                                        <div class="forecast-box__weather">
+                                            <p class="forecast-box__text">Rain</p>
+                                            <img class="forecast-box__img" src="/img/rain-icon.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="info__forecast-box forecast-box">
+                                    <div class="forecast-box__date">
+                                        <p class="forecast-box__day">17 May</p>
+                                        <p class="forecast-box__time">15:00</p>
+                                    </div>
+                                    <div class="forecast-box__bottom">
+                                        <ul class="forecast-box__list">
+                                            <li class="forecast-box__item">Temperature: 13°</li>
+                                            <li class="forecast-box__item">Feels like: 10°</li>
+                                        </ul>
+                                        <div class="forecast-box__weather">
+                                            <p class="forecast-box__text">Rain</p>
+                                            <img class="forecast-box__img" src="/img/rain-icon.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="info__forecast-box forecast-box">
+                                    <div class="forecast-box__date">
+                                        <p class="forecast-box__day">17 May</p>
+                                        <p class="forecast-box__time">18:00</p>
+                                    </div>
+                                    <div class="forecast-box__bottom">
+                                        <ul class="forecast-box__list">
+                                            <li class="forecast-box__item">Temperature: 13°</li>
+                                            <li class="forecast-box__item">Feels like: 10°</li>
+                                        </ul>
+                                        <div class="forecast-box__weather">
+                                            <p class="forecast-box__text">Rain</p>
+                                            <img class="forecast-box__img" src="/img/rain-icon.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tabs__items">
+                        <button class="tabs__item">Now</button>
+                        <button class="tabs__item">Details</button>
+                        <button class="tabs__item">Forecast</button>
+                    </div>
+                </div>
+                <div class="info__locations locations">
+                    <div>
+
+                        <h4 class="locations__title">Added Locations:</h4>
+                    </div>
+                    <ul class="locations__list">
+                        <li class="locations__item">Amur</li>
+                        <li class="locations__item">Samara</li>
+                        <li class="locations__item">Bali</li>
+                        <li class="locations__item">Dane</li>
+                        <li class="locations__item">Kilo</li>
+                        <li class="locations__item">Nur-Sultan</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
