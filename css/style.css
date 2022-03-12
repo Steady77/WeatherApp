@@ -99,7 +99,7 @@ ul {
 
 .locations__list {
     height: 248px;
-    padding-left: 18px;
+    padding: 0 18px;
     overflow: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -113,10 +113,27 @@ ul {
 .locations__item {
     font-size: 24px;
     line-height: 28px;
+    position: relative;
+}
+
+.locations__item-text {
+    cursor: pointer;
 }
 
 .locations__item:not(:last-child) {
     margin-bottom: 16px;
+}
+
+.locations__item-close {
+    background-image: url('../img/del-icon.svg');
+    width: 17px;
+    height: 16px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    position: absolute;
+    top: 6px;
+    right: 10px;
 }
 
 .info__now {
@@ -131,7 +148,6 @@ ul {
 .info__now-tepmerature {
     font-size: 70px;
     line-height: 82px;
-    margin-bottom: 40px;
     padding-left: 11px;
     position: relative;
 }
@@ -162,7 +178,7 @@ ul {
 }
 
 .info__now-img {
-    margin: 0 auto auto;
+    margin: -25px auto auto;
 }
 
 .info__now-bottom {
@@ -266,4 +282,6 @@ ul {
 
 .forecast-box__img {
     width: 31px;
+    display: block;
+    margin: 0 auto;
 }
