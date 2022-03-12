@@ -11,29 +11,50 @@ import { tabs } from './tabs.js';
 
 tabs(UI_ELEMENTS);
 
-let favoriteList = [];
-
 const SERVER_URL = 'https://api.openweathermap.org/data/2.5/';
 const API_KEY = '4a0a2aa638f3b881ecea6eb7d3c9ca4a';
 const TIMESTAMPS_NUMBER = 3;
+const DEFAULT_CITY = 'moscow';
 
-function getForecastData(cityName = UI_ELEMENTS.CITY_INPUT.value) {
-    const forecastUrl = `${SERVER_URL}forecast?q=${cityName}&appid=${API_KEY}&units=metric&cnt=${TIMESTAMPS_NUMBER}`;
+let favoriteList = [];
 
-    return fetch(forecastUrl)
-        .then(response => response.json())
-        .catch(alert);
-}
+UI_ELEMENTS.FORM.addEventListener('submit', event => {
+    event.preventDefault();
 
-function getCityData(cityName = UI_ELEMENTS.CITY_INPUT.value) {
-    const url = `${SERVER_URL}weather?q=${cityName}&appid=${API_KEY}&units=metric`;
+    const city = UI_ELEMENTS.CITY_INPUT.value;
+
+    if (!city) return alert('Вы не ввели город');
+
+    renderWeatherData(city);
+    clearCityField();
+});
+
+UI_ELEMENTS.FAVORITE_ADD_BUTTON.addEventListener('click', () => {
+    addToFavoriteList();
+    renderFavoriteList(favoriteList);
+    deleteFromFavorite();
+    onClickFavoriteCity();
+});
+
+renderWeatherData();
+
+function getForecastData(city) {
+    const url = `${SERVER_URL}forecast?q=${city}&appid=${API_KEY}&units=metric&cnt=${TIMESTAMPS_NUMBER}`;
 
     return fetch(url)
         .then(response => response.json())
         .catch(alert);
 }
 
-function renderWeatherData(city) {
+function getCityData(city) {
+    const url = `${SERVER_URL}weather?q=${city}&appid=${API_KEY}&units=metric`;
+
+    return fetch(url)
+        .then(response => response.json())
+        .catch(alert);
+}
+
+function renderWeatherData(city = DEFAULT_CITY) {
     getCityData(city)
         .then(data => {
             showWeatherImg(data.weather[0].icon);
@@ -82,23 +103,3 @@ function onClickFavoriteCity() {
         });
     });
 }
-
-UI_ELEMENTS.FORM.addEventListener('submit', event => {
-    event.preventDefault();
-
-    const isCityEmpty = UI_ELEMENTS.CITY_INPUT.value;
-
-    if (!isCityEmpty) return alert('Вы не ввели город');
-
-    renderWeatherData();
-    clearCityField();
-});
-
-UI_ELEMENTS.FAVORITE_ADD_BUTTON.addEventListener('click', () => {
-    addToFavoriteList();
-    renderFavoriteList(favoriteList);
-    deleteFromFavorite();
-    onClickFavoriteCity();
-});
-
-renderWeatherData('Moscow');
