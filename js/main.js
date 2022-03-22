@@ -8,6 +8,7 @@ import {
     renderWeatherForecast,
 } from './view.js';
 import { tabs } from './tabs.js';
+import { saveLocalStorage, getLocalStorage } from './localStorage.js';
 
 tabs(UI_ELEMENTS);
 
@@ -16,12 +17,14 @@ const API_KEY = '4a0a2aa638f3b881ecea6eb7d3c9ca4a';
 const TIMESTAMPS_NUMBER = 3;
 const DEFAULT_CITY = 'moscow';
 
-let favoriteList = [];
+let favoriteList = getLocalStorage('favorite') || [];
 
 UI_ELEMENTS.FORM.addEventListener('submit', event => {
     event.preventDefault();
 
     const city = UI_ELEMENTS.CITY_INPUT.value;
+
+    saveLocalStorage('city', city);
 
     if (!city) return alert('Вы не ввели город');
 
@@ -34,9 +37,13 @@ UI_ELEMENTS.FAVORITE_ADD_BUTTON.addEventListener('click', () => {
     renderFavoriteList(favoriteList);
     deleteFromFavorite();
     onClickFavoriteCity();
+    saveLocalStorage('favorite', favoriteList);
 });
 
-renderWeatherData();
+renderWeatherData(getLocalStorage('city'));
+renderFavoriteList(favoriteList);
+deleteFromFavorite();
+onClickFavoriteCity();
 
 function getForecastData(city) {
     const url = `${SERVER_URL}forecast?q=${city}&appid=${API_KEY}&units=metric&cnt=${TIMESTAMPS_NUMBER}`;
@@ -80,6 +87,7 @@ function deleteFromFavorite() {
             renderFavoriteList(favoriteList);
             onClickFavoriteCity();
             deleteFromFavorite();
+            saveLocalStorage('favorite', favoriteList);
         });
     });
 }
@@ -99,6 +107,7 @@ function onClickFavoriteCity() {
         item.addEventListener('click', event => {
             const city = event.target.textContent;
 
+            saveLocalStorage('city', city);
             renderWeatherData(city);
         });
     });
