@@ -47,34 +47,45 @@ onClickFavoriteCity();
 
 function getForecastData(city) {
     const url = `${SERVER_URL}forecast?q=${city}&appid=${API_KEY}&units=metric&cnt=${TIMESTAMPS_NUMBER}`;
-
-    return fetch(url)
-        .then(response => response.json())
-        .catch(alert);
+    return getJson(url);
 }
 
 function getCityData(city) {
     const url = `${SERVER_URL}weather?q=${city}&appid=${API_KEY}&units=metric`;
-
-    return fetch(url)
-        .then(response => response.json())
-        .catch(alert);
+    return getJson(url);
 }
 
-function renderWeatherData(city = DEFAULT_CITY) {
-    getCityData(city)
-        .then(data => {
-            showWeatherImg(data.weather[0].icon);
-            showResult(data.main.temp, data.name);
-            renderWeatherDetails(data);
-        })
-        .catch(alert);
+async function getJson(url) {
+    try {
+        const response = await fetch(url);
 
-    getForecastData(city)
-        .then(data => {
-            renderWeatherForecast(data);
-        })
-        .catch(alert);
+        if (!response.ok) {
+            throw new Error(`Ошибка запроса данных ${response.status} ${response.statusText}`);
+        } else {
+            const json = await response.json();
+            return json;
+        }
+    } catch (error) {
+        alert(error);
+    }
+}
+
+async function renderWeatherData(city = DEFAULT_CITY) {
+    try {
+        const data = await getCityData(city);
+        showWeatherImg(data.weather[0].icon);
+        showResult(data.main.temp, data.name);
+        renderWeatherDetails(data);
+    } catch (error) {
+        alert(error);
+    }
+
+    try {
+        const data = await getForecastData(city);
+        renderWeatherForecast(data);
+    } catch (error) {
+        alert(error);
+    }
 }
 
 function deleteFromFavorite() {
