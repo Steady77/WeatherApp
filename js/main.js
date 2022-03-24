@@ -17,7 +17,7 @@ const API_KEY = '4a0a2aa638f3b881ecea6eb7d3c9ca4a';
 const TIMESTAMPS_NUMBER = 3;
 const DEFAULT_CITY = 'moscow';
 
-let favoriteList = getLocalStorage('favorite') || [];
+const setOfFavoriteCities = new Set(getLocalStorage('favorite'));
 
 UI_ELEMENTS.FORM.addEventListener('submit', event => {
     event.preventDefault();
@@ -34,14 +34,14 @@ UI_ELEMENTS.FORM.addEventListener('submit', event => {
 
 UI_ELEMENTS.FAVORITE_ADD_BUTTON.addEventListener('click', () => {
     addToFavoriteList();
-    renderFavoriteList(favoriteList);
+    renderFavoriteList(setOfFavoriteCities);
     deleteFromFavorite();
     onClickFavoriteCity();
-    saveLocalStorage('favorite', favoriteList);
+    saveLocalStorage('favorite', [...setOfFavoriteCities]);
 });
 
 renderWeatherData(getLocalStorage('city'));
-renderFavoriteList(favoriteList);
+renderFavoriteList(setOfFavoriteCities);
 deleteFromFavorite();
 onClickFavoriteCity();
 
@@ -91,24 +91,22 @@ async function renderWeatherData(city = DEFAULT_CITY) {
 function deleteFromFavorite() {
     UI_ELEMENTS.DELETE_CITY_BUTTON = document.querySelectorAll('.locations__item-close');
 
-    UI_ELEMENTS.DELETE_CITY_BUTTON.forEach((btn, i) => {
+    UI_ELEMENTS.DELETE_CITY_BUTTON.forEach(btn => {
         btn.addEventListener('click', () => {
-            favoriteList.splice(i, 1);
+            const city = btn.previousElementSibling.textContent;
+            setOfFavoriteCities.delete(city);
 
-            renderFavoriteList(favoriteList);
+            renderFavoriteList(setOfFavoriteCities);
             onClickFavoriteCity();
             deleteFromFavorite();
-            saveLocalStorage('favorite', favoriteList);
+            saveLocalStorage('favorite', [...setOfFavoriteCities]);
         });
     });
 }
 
 function addToFavoriteList() {
     const city = UI_ELEMENTS.CITY_DISPLAY.textContent;
-    const isCityInFavorite = favoriteList.some(item => item === city);
-
-    if (isCityInFavorite) return;
-    favoriteList.push(city);
+    setOfFavoriteCities.add(city);
 }
 
 function onClickFavoriteCity() {
