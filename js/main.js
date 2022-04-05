@@ -13,13 +13,13 @@ import { saveLocalStorage, getLocalStorage } from './localStorage.js';
 tabs(UI_ELEMENTS);
 
 const SERVER_URL = 'https://api.openweathermap.org/data/2.5/';
-const API_KEY = '4a0a2aa638f3b881ecea6eb7d3c9ca4a';
-const TIMESTAMPS_NUMBER = 3;
+const API_KEY = 'c177a9d1bbe8b48fe6ca8e58a30379da';
+const TIMESTAMPS_NUMBER = 5;
 const DEFAULT_CITY = 'moscow';
 
 const setOfFavoriteCities = new Set(getLocalStorage('favorite'));
 
-UI_ELEMENTS.FORM.addEventListener('submit', event => {
+UI_ELEMENTS.FORM.addEventListener('submit', (event) => {
     event.preventDefault();
 
     const city = UI_ELEMENTS.CITY_INPUT.value;
@@ -40,7 +40,8 @@ UI_ELEMENTS.FAVORITE_ADD_BUTTON.addEventListener('click', () => {
     saveLocalStorage('favorite', [...setOfFavoriteCities]);
 });
 
-renderWeatherData(getLocalStorage('city'));
+localStorage.city ? renderWeatherData(getLocalStorage('city')) : renderWeatherData();
+
 renderFavoriteList(setOfFavoriteCities);
 deleteFromFavorite();
 onClickFavoriteCity();
@@ -91,7 +92,7 @@ async function renderWeatherData(city = DEFAULT_CITY) {
 function deleteFromFavorite() {
     UI_ELEMENTS.DELETE_CITY_BUTTON = document.querySelectorAll('.locations__item-close');
 
-    UI_ELEMENTS.DELETE_CITY_BUTTON.forEach(btn => {
+    UI_ELEMENTS.DELETE_CITY_BUTTON.forEach((btn) => {
         btn.addEventListener('click', () => {
             const city = btn.previousElementSibling.textContent;
             setOfFavoriteCities.delete(city);
@@ -112,8 +113,8 @@ function addToFavoriteList() {
 function onClickFavoriteCity() {
     UI_ELEMENTS.FAVORITE_CITY_NAME = document.querySelectorAll('.locations__item-text');
 
-    UI_ELEMENTS.FAVORITE_CITY_NAME.forEach(item => {
-        item.addEventListener('click', event => {
+    UI_ELEMENTS.FAVORITE_CITY_NAME.forEach((item) => {
+        item.addEventListener('click', (event) => {
             const city = event.target.textContent;
 
             saveLocalStorage('city', city);
