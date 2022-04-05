@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 export const UI_ELEMENTS = {
     TAB_BUTTONS_WRAPPER: document.querySelector('.tabs__items'),
     TAB_BUTTONS: document.querySelectorAll('.tabs__item'),
@@ -29,21 +31,9 @@ export function showWeatherImg(iconName) {
     UI_ELEMENTS.WEATHER_IMG.src = `http://openweathermap.org/img/wn/${iconName}@4x.png`;
 }
 
-function formatTime(seconds) {
-    const milliseconds = seconds * 1000;
-    const date = new Date(milliseconds);
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
+const formatDate = (date) => format(new Date(date), 'd MMM');
 
-    return `${hours}:${minutes < 10 ? `0${minutes}` : minutes}`;
-}
-
-function formatDate(string) {
-    const date = new Date(string);
-    const options = { day: 'numeric', month: 'short' };
-
-    return date.toLocaleDateString('en-GB', options);
-}
+const formatTime = (seconds) => format(new Date(seconds * 1000), 'kk mm');
 
 export function renderWeatherDetails(data) {
     UI_ELEMENTS.WEATHER_DETAILS.innerHTML = `
@@ -62,7 +52,7 @@ export function renderWeatherForecast({ city, list }) {
     UI_ELEMENTS.FORECAST_CITY_NAME.textContent = city.name;
     UI_ELEMENTS.WEATHER_FORECAST.innerHTML = '';
 
-    list.forEach(item => {
+    list.forEach((item) => {
         UI_ELEMENTS.WEATHER_FORECAST.innerHTML += `
             <div class="info__forecast-box forecast-box">
                 <div class="forecast-box__date">
@@ -89,7 +79,7 @@ export function renderWeatherForecast({ city, list }) {
 export function renderFavoriteList(cityList) {
     UI_ELEMENTS.FAVORITE_LIST.innerHTML = '';
 
-    cityList.forEach(cityName => {
+    cityList.forEach((cityName) => {
         UI_ELEMENTS.FAVORITE_LIST.innerHTML += `
             <li class="locations__item">
                 <span class="locations__item-text">${cityName}</span>         
