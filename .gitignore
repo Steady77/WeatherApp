@@ -2,3 +2,4 @@
 .vscode
 /dist
 .parcel-cache
+.prettierrc.json
